@@ -1,0 +1,13 @@
+= Holiday Droid
+
+Mr droid is finally on his long overdue vacation. 
+Sipping cocktails on the beach and working on his tan - life is good.
+But nothing good lasts forever ...
+
+== CONTROLS
+  Arrows-keys to move
+  Double-up for Double-jump
+
+== WHAT
+A 2D sidescrolling platformer made with Ruby, http://libgosu.org & http://ippa.se/chingu
+Levels built with Chingus shiny new editor.
