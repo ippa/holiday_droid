@@ -16,7 +16,6 @@ class Tube < GameObject
   end
 end
 
-
 #
 # CLOUD
 #
@@ -29,46 +28,6 @@ class Cloud < GameObject
   end  
 end
 
-
-class MovingObject < GameObject
-  traits :velocity, :bounding_box, :collision_detection
-  
-  def initialize(options = {})
-    super
-    
-    @image = Image["#{self.filename}.bmp"]
-    self.acceleration_y = 0.5
-    pause!
-  end
-  
-  def self.solid
-    all.select { |block| block.alpha == 255 }
-  end
-
-  def self.inside_viewport
-    all.select { |block| block.game_state.viewport.inside?(block) }
-  end
-  
-  def title
-    "-new title needed-"
-  end
-end
-
-
-class Ball < MovingObject
-  
-  def setup
-    self.velocity_x = -4
-  end
-  
-  def bounce
-    self.velocity_y = -self.velocity_y
-  end
-  
-  def title
-    "an annoying beachball"
-  end
-end
 
 #
 # BLOCK, our basic level building block

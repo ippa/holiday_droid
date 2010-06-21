@@ -9,9 +9,8 @@ class Effect < GameObject
     
     @amount.times { self.class.create(options.merge(:child => true)) } unless @child
   end
-  
-end
 
+end
 
 class SmokePuff < Effect
   def setup

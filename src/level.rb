@@ -6,7 +6,8 @@ class Level < GameState
     
     self.input = { :escape => :exit, :e => :edit }
     self.viewport.game_area = [0, 0, 6000, 1000]    
-    load_game_objects(:debug => DEBUG)
+    @file = File.join(ROOT, "levels", self.filename + ".yml")
+    load_game_objects(:file => @file, :debug => DEBUG)
     
     @droid = Droid.create(:x => 100, :y => 500)
     
@@ -17,7 +18,7 @@ class Level < GameState
   end
   
   def edit
-    push_game_state GameStates::Edit.new(:grid => [16,16], :except => [Droid], :debug => true)
+    push_game_state GameStates::Edit.new(:file => @file, :grid => [16,16], :except => [Droid], :debug => true)
   end
   
   def restore_player_position
@@ -28,20 +29,43 @@ class Level < GameState
     @saved_x, @saved_y = @droid.x, @droid.y   if @droid.collidable && !@jumping
   end
 
-  def update    
+  def update
+    #
+    # VIEWPORT SCIENCE
+    #
     off = (@droid.last_direction == :right) ? 200 : -200
     self.viewport.x_target = @droid.x - $window.width/2 + off
     self.viewport.y_target = @droid.y - $window.height/2 - 200
     
-    @droid.each_collision(Battery) do |player, collectable|
-      player.level_up
+    #
+    # COLLECTABLES!
+    #
+    Collectable.each_collision([@droid]) do |collectable, player|
       collectable.die
+      wav = "#{collectable.filename}.wav"
+      wav = "collectable.wav"
+      Sound[wav].play if Sound[wav]
       PuffText.create("#{collectable.title} <i>+#{collectable.score}</i>", :from => collectable)
     end
-
-    @droid.each_collision(Drink) do |player, collectable|
-      collectable.die
-      PuffText.create("#{collectable.title} <u>+#{collectable.score}</u>", :from => collectable)
+    
+    #
+    # ENEMIES!
+    #
+    Enemy.each_collision([@droid]) do |enemy, player|
+      if player.velocity_y >= 20
+        player.y = enemy.bb.top
+        enemy.squash
+        Sound["attack.wav"].play(0.6)
+      elsif player.velocity_y > 2
+        player.y = enemy.bb.top
+        player.jumps = 0
+        player.jump
+        enemy.die
+        Sound["attack.wav"].play(0.4)
+      else
+        player.die
+        Sound["hurt.wav"].play(0.5)
+      end
     end
 
     $window.caption = "#{@droid.x.to_i}/#{@droid.y.to_i} - viewport x/y: #{self.viewport.x.to_i}/#{self.viewport.y.to_i} - FPS: #{$window.fps}"
@@ -73,16 +97,15 @@ class Beach < Level
   def update
     super
     
-    Ball.inside_viewport.each do |ball| 
-      ball.unpause! 
-      if block = first_terrain_collision(ball)
-        ball.velocity_y = -ball.velocity_y
-        ball.y += ball.velocity_y
+    MovingEnemy.inside_viewport.each do |enemy| 
+      enemy.unpause! 
+    
+      if block = first_terrain_collision(enemy)
+        enemy.velocity_y = -enemy.velocity_y
+        enemy.y += enemy.velocity_y
       end
     end
-      
   end
-  
 end
 
 

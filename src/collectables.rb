@@ -1,6 +1,6 @@
 class Collectable < GameObject
-  traits :timer, :effect, :velocity
-  trait :bounding_box, :debug => false
+  traits :timer, :effect, :velocity, :collision_detection
+  trait :bounding_box
   
   attr_reader :title, :score
 
@@ -18,14 +18,20 @@ class Collectable < GameObject
   end
 end
 
-#
-# BATTERY
-#
 class Battery < Collectable
   def setup
     @image = Image["battery.png"]
     @title = "sparkling fresh battery acid"
     @score = 1000
+    cache_bounding_box
+  end
+end
+
+class SunOil < Collectable
+  def setup
+    @image = Image["sunoil.bmp"]
+    @title = "Tanned like the jersey-shore cast"
+    @score = 200
     cache_bounding_box
   end
 end

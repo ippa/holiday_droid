@@ -5,6 +5,7 @@ class Droid < Chingu::GameObject
   trait :bounding_box, :scale => 0.8, :debug => false
   traits :timer, :collision_detection , :timer, :velocity
   attr_reader :last_direction
+  attr_accessor :jumps
   
   def setup
     self.input = {  [:holding_left, :holding_a] => :holding_left, 
@@ -24,7 +25,7 @@ class Droid < Chingu::GameObject
     @jumps = 0
     
     self.factor = 4
-    self.zorder = 1000   
+    self.zorder = 1000
     self.acceleration_y = 0.5
     self.max_velocity = 20
     self.rotation_center = :bottom_center
@@ -74,7 +75,8 @@ class Droid < Chingu::GameObject
     SmokePuff.create(:x => self.x, :size => [self.factor*10, self.factor*10], :y => self.y, :amount => 2)  if @jumps == 1
   
     @jumps += 1
-    self.velocity_y = -13
+    self.velocity_y = -11
+    Sound["jump.wav"].play(0.4)
     @animation = @animations[:up]
   end
   
@@ -91,7 +93,10 @@ class Droid < Chingu::GameObject
       if self.velocity_y < 0
         self.y = block.bb.bottom + self.height
       else
-        SmokePuff.create(:x => self.x, :y => self.y, :size => [self.factor*10, self.factor*10],:amount => self.velocity_y/5) if self.velocity_y > 15
+        if self.velocity_y > 15
+          SmokePuff.create(:x => self.x, :y => self.y, :size => [self.factor*10, self.factor*10],:amount => self.velocity_y/5)
+          Sound["land.wav"].play(0.2 * self.velocity_y / 10)   if self.velocity_y >= 20
+        end
         @jumps = 0
         self.y = block.bb.top-1
       end
