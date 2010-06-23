@@ -168,7 +168,7 @@
     :factor_y: 0.48
     :color: 4294967295
 - Cloud: 
-    :x: -1420.85293558851
+    :x: -1489.20490557103
     :y: 160.0
     :angle: 0
     :zorder: 100
@@ -176,7 +176,7 @@
     :factor_y: 1.10344827586207
     :color: 2399141887
 - Cloud: 
-    :x: 111.682613075494
+    :x: 56.49595484729
     :y: 176.0
     :angle: 0
     :zorder: 100
@@ -184,7 +184,7 @@
     :factor_y: 2.20689655172414
     :color: 2399141887
 - Cloud: 
-    :x: 1034.26328237835
+    :x: 1100.54848890225
     :y: 256.0
     :angle: 0
     :zorder: 100
@@ -192,7 +192,7 @@
     :factor_y: 0.827586206896552
     :color: 2399141887
 - Cloud: 
-    :x: 674.338422119133
+    :x: 672.0
     :y: 96.0
     :angle: 0
     :zorder: 100
@@ -200,7 +200,7 @@
     :factor_y: 2.20689655172414
     :color: 2399141887
 - Cloud: 
-    :x: 2894.36145709108
+    :x: 2886.72899397282
     :y: 112.0
     :angle: 0
     :zorder: 100
@@ -208,7 +208,7 @@
     :factor_y: 2.20689655172414
     :color: 2399141887
 - Cloud: 
-    :x: 3771.85517711549
+    :x: 3914.96329885593
     :y: 224.0
     :angle: 0
     :zorder: 100
@@ -216,7 +216,7 @@
     :factor_y: 0.827586206896552
     :color: 2399141887
 - Cloud: 
-    :x: 2989.27857649796
+    :x: 2905.85058423448
     :y: 96.0
     :angle: 0
     :zorder: 100
@@ -224,7 +224,7 @@
     :factor_y: 2.20689655172414
     :color: 2399141887
 - Cloud: 
-    :x: 6621.5580700391
+    :x: 6552.81690415008
     :y: 96.0
     :angle: 0
     :zorder: 100
@@ -232,7 +232,7 @@
     :factor_y: 2.20689655172414
     :color: 2399141887
 - Cloud: 
-    :x: 7313.34036577816
+    :x: 7278.88770525974
     :y: 240.0
     :angle: 0
     :zorder: 100
@@ -240,7 +240,7 @@
     :factor_y: 1.10344827586207
     :color: 2399141887
 - Cloud: 
-    :x: 5578.44387528101
+    :x: 5537.7134128267
     :y: 160.0
     :angle: 0
     :zorder: 100
@@ -248,15 +248,7 @@
     :factor_y: 1.10344827586207
     :color: 2399141887
 - Cloud: 
-    :x: 2298.17535228477
-    :y: 176.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 1.21452145214521
-    :factor_y: 2.20689655172414
-    :color: 2399141887
-- Cloud: 
-    :x: 4760.23120992257
+    :x: 2033.04753207175
     :y: 64.0
     :angle: 0
     :zorder: 100
@@ -264,7 +256,15 @@
     :factor_y: 2.20689655172414
     :color: 2399141887
 - Cloud: 
-    :x: 8926.17853765067
+    :x: 4792.70568801524
+    :y: 64.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 1.21452145214521
+    :factor_y: 2.20689655172414
+    :color: 2399141887
+- Cloud: 
+    :x: 8957.19320018051
     :y: 224.0
     :angle: 0
     :zorder: 100
@@ -272,7 +272,7 @@
     :factor_y: 2.20689655172414
     :color: 2399141887
 - Cloud: 
-    :x: 5746.03661028436
+    :x: 5782.59460642303
     :y: 128.0
     :angle: 0
     :zorder: 100
@@ -648,14 +648,6 @@
     :factor_y: 0.48
     :color: 4294967295
 - Drink: 
-    :x: 1120.0
-    :y: 432.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 9.6
-    :factor_y: 5.33333333333333
-    :color: 4294967295
-- Drink: 
     :x: 1872.0
     :y: 512.0
     :angle: 0
@@ -863,14 +855,6 @@
     :factor_x: 2.66666666666667
     :factor_y: 2.52631578947368
     :color: 4294967295
-- SunOil: 
-    :x: 1600.0
-    :y: 576.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 2.66666666666667
-    :factor_y: 2.52631578947368
-    :color: 4294967295
 - BeachBlock: 
     :x: 3552.0
     :y: 672.0
@@ -897,7 +881,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 3984.0
-    :y: 672.0
+    :y: 704.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -905,7 +889,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4128.0
-    :y: 672.0
+    :y: 736.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -913,7 +897,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4272.0
-    :y: 672.0
+    :y: 768.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -921,7 +905,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4416.0
-    :y: 672.0
+    :y: 784.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -929,7 +913,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4560.0
-    :y: 672.0
+    :y: 816.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -937,7 +921,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4704.0
-    :y: 672.0
+    :y: 832.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -945,7 +929,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4848.0
-    :y: 672.0
+    :y: 848.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -953,7 +937,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4992.0
-    :y: 672.0
+    :y: 864.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -1017,7 +1001,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4416.0
-    :y: 816.0
+    :y: 896.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -1025,7 +1009,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4560.0
-    :y: 816.0
+    :y: 912.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -1033,7 +1017,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4704.0
-    :y: 816.0
+    :y: 944.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -1041,7 +1025,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4848.0
-    :y: 816.0
+    :y: 960.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -1049,7 +1033,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 4992.0
-    :y: 816.0
+    :y: 976.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -1057,7 +1041,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 5136.0
-    :y: 672.0
+    :y: 880.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -1065,7 +1049,7 @@
     :color: 4294967295
 - BeachBlock: 
     :x: 5136.0
-    :y: 816.0
+    :y: 992.0
     :angle: 0
     :zorder: 100
     :factor_x: 0.48
@@ -1296,36 +1280,20 @@
     :factor_y: 0.48
     :color: 4294967295
 - Crab: 
-    :x: 2768.0
-    :y: 496.0
+    :x: 3632.0
+    :y: 576.0
     :angle: 0
     :zorder: 100
-    :factor_x: 4.26666666666667
-    :factor_y: 7.11111111111111
+    :factor_x: 3.2
+    :factor_y: 5.33333333333333
     :color: 4294967295
 - Crab: 
-    :x: 814.0
-    :y: 560.0
+    :x: 1024.0
+    :y: 576.0
     :angle: 0
     :zorder: 100
-    :factor_x: 5.33333333333334
-    :factor_y: 8.88888888888889
-    :color: 4294967295
-- Crab: 
-    :x: 1008.0
-    :y: 544.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 4.26666666666667
-    :factor_y: 7.11111111111111
-    :color: 4294967295
-- Crab: 
-    :x: 606.0
-    :y: 560.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 5.33333333333334
-    :factor_y: 8.88888888888889
+    :factor_x: 3.20000000000001
+    :factor_y: 5.33333333333333
     :color: 4294967295
 - SunOil: 
     :x: 1568.0
@@ -1335,91 +1303,171 @@
     :factor_x: 2.66666666666667
     :factor_y: 2.52631578947368
     :color: 4294967295
-- SunOil: 
-    :x: 1632.0
+- Drink: 
+    :x: 2368.0
+    :y: 208.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 12.8
+    :factor_y: 7.11111111111111
+    :color: 4294967295
+- Drink: 
+    :x: 2432.0
+    :y: 208.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 12.8
+    :factor_y: 7.11111111111111
+    :color: 4294967295
+- Drink: 
+    :x: 2240.0
+    :y: 208.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 12.8
+    :factor_y: 7.11111111111111
+    :color: 4294967295
+- BeachBlock: 
+    :x: 1792.0
+    :y: 304.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.106666666666666
+    :factor_y: 0.106666666666666
+    :color: 4294967295
+- BeachBlock: 
+    :x: 1920.0
+    :y: 240.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.213333333333333
+    :factor_y: 0.213333333333333
+    :color: 4294967295
+- BeachBlock: 
+    :x: 2080.0
+    :y: 256.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.213333333333333
+    :factor_y: 0.213333333333333
+    :color: 4294967295
+- BeachBlock: 
+    :x: 2240.0
+    :y: 272.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.213333333333333
+    :factor_y: 0.213333333333333
+    :color: 4294967295
+- BeachBlock: 
+    :x: 2304.0
+    :y: 272.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.213333333333333
+    :factor_y: 0.213333333333333
+    :color: 4294967295
+- BeachBlock: 
+    :x: 2368.0
+    :y: 272.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.213333333333333
+    :factor_y: 0.213333333333333
+    :color: 4294967295
+- BeachBlock: 
+    :x: 2432.0
+    :y: 272.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.213333333333333
+    :factor_y: 0.213333333333333
+    :color: 4294967295
+- BeachBlock: 
+    :x: 2496.0
+    :y: 272.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.213333333333333
+    :factor_y: 0.213333333333333
+    :color: 4294967295
+- Drink: 
+    :x: 2304.0
+    :y: 208.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 12.8
+    :factor_y: 7.11111111111111
+    :color: 4294967295
+- Crab: 
+    :x: 3744.0
     :y: 576.0
     :angle: 0
     :zorder: 100
-    :factor_x: 2.66666666666667
-    :factor_y: 2.52631578947368
+    :factor_x: 3.2
+    :factor_y: 5.33333333333333
     :color: 4294967295
-- Drink: 
-    :x: 1680.0
+- Crab: 
+    :x: 3856.0
     :y: 576.0
     :angle: 0
     :zorder: 100
-    :factor_x: 9.6
+    :factor_x: 3.2
     :factor_y: 5.33333333333333
     :color: 4294967295
-- Drink: 
-    :x: 1728.0
-    :y: 576.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 9.6
-    :factor_y: 5.33333333333333
-    :color: 4294967295
-- Drink: 
-    :x: 1776.0
-    :y: 576.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 9.6
-    :factor_y: 5.33333333333333
-    :color: 4294967295
-- Drink: 
-    :x: 1776.0
-    :y: 512.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 9.6
-    :factor_y: 5.33333333333333
-    :color: 4294967295
-- Drink: 
-    :x: 1728.0
-    :y: 512.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 9.6
-    :factor_y: 5.33333333333333
-    :color: 4294967295
-- Drink: 
-    :x: 1680.0
-    :y: 512.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 9.6
-    :factor_y: 5.33333333333333
-    :color: 4294967295
-- Drink: 
-    :x: 1680.0
-    :y: 448.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 9.6
-    :factor_y: 5.33333333333333
-    :color: 4294967295
-- Drink: 
-    :x: 1728.0
-    :y: 448.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 9.6
-    :factor_y: 5.33333333333333
-    :color: 4294967295
-- Drink: 
-    :x: 1776.0
-    :y: 448.0
-    :angle: 0
-    :zorder: 100
-    :factor_x: 9.6
-    :factor_y: 5.33333333333333
-    :color: 4294967295
-- Drink: 
-    :x: 1456.0
+- Snail: 
+    :x: 2736.0
     :y: 528.0
     :angle: 0
     :zorder: 100
-    :factor_x: 28.8
-    :factor_y: 16.0
+    :factor_x: 3.69230769230769
+    :factor_y: 4.0
+    :color: 4294967295
+- Seagull: 
+    :x: 2752.0
+    :y: 256.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 4.26666666666667
+    :factor_y: 8.0
+    :color: 4294967295
+- Seagull: 
+    :x: 3200.0
+    :y: 240.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 4.26666666666667
+    :factor_y: 8.0
+    :color: 4294967295
+- Seagull: 
+    :x: 3344.0
+    :y: 320.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 4.26666666666667
+    :factor_y: 8.0
+    :color: 4294967295
+- Snail: 
+    :x: 797.0
+    :y: 576.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 3.69230769230769
+    :factor_y: 4.0
+    :color: 4294967295
+- Seagull: 
+    :x: 1088.0
+    :y: 288.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 4.26666666666667
+    :factor_y: 8.0
+    :color: 4294967295
+- Seagull: 
+    :x: 400.0
+    :y: 224.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 4.26666666666667
+    :factor_y: 8.0
     :color: 4294967295

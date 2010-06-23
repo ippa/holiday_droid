@@ -5,6 +5,10 @@ class Collectable < GameObject
   attr_reader :title, :score
 
   def die 
+    wav = "#{filename}.wav"
+    wav = "collectable.wav"
+    Sound[wav].play(0.3) if Sound[wav]
+    
     puff_effect
   end
 

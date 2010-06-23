@@ -1,11 +1,13 @@
 class Enemy < GameObject
   traits :velocity, :timer, :effect, :bounding_box, :collision_detection
   
+  attr_reader :title, :score
+  
   def initialize(options = {})
-    super
-    
     @image = Image["#{self.filename}.bmp"]
     @title = "- title needed -"
+    
+    super
   end
   
   def self.inside_viewport
@@ -24,10 +26,11 @@ class Enemy < GameObject
     self.velocity_y = 2
     self.velocity_x = 0
     self.acceleration_y = 0.5
+    
     every(100) { self.mode = (self.mode == :default) ? :additive : :default }
     after(2000) { destroy }
   end
-
+  
   def die 
     self.collidable = false
     self.rotation_rate = -1
@@ -47,10 +50,10 @@ end
 #
 class MovingEnemy < Enemy
   def initialize(options = {})
-    super
-    
     self.acceleration_y = 0.5
     pause!
+    
+    super
   end
   
   def bounce
@@ -60,26 +63,51 @@ end
 
 class Fish < MovingEnemy
   def setup
-    @animation = Animation.new(:file => "fish.bmp", :delay => 40, :size => [15,9])
+    @animation = Animation.new(:file => "fish.bmp", :delay => 50, :size => [15,9])
     @image = @animation.first
-    self.velocity_x = -3
-    @title = "Kill the fish!"
+    self.velocity_x = -2
+    @title = "floppy fish"
+    @score = 100
   end
 end
 
 class Crab < MovingEnemy
   def setup
-    @animation = Animation.new(:file => "crab.bmp", :delay => 40, :size => [15,9])
+    @animation = Animation.new(:file => "crab.bmp", :delay => 100, :size => [15,9])
     @image = @animation.first
-    self.velocity_x = -2
-    @title = "Crab Killah"
+    self.velocity_x = -1.5
+    @title = "crab killah"
+    @score = 300
   end
 end
+
+class Snail < MovingEnemy
+  def setup
+    @animation = Animation.new(:file => "snail.bmp", :delay => 200, :size => [13,12])
+    @image = @animation.first
+    self.velocity_x = -1
+    @title = "Snail Slainer"
+    @score = 1000
+  end
+end
+
+class Seagull < MovingEnemy
+  def setup
+    @animation = Animation.new(:file => "seagull.bmp", :delay => 100, :size => [15,8])
+    @image = @animation.first
+    @title = "No more Caw-Caw!"
+    @score = 850
+    
+    self.acceleration_y = 0
+  end  
+end
+
 
 class Ball < MovingEnemy
   def setup
     self.velocity_x = -4
-    @title = "an annoying beachball"
+    @title = "annoying beachball"
+    @score = 400
   end  
 end
 

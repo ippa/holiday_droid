@@ -2,7 +2,9 @@ class PuffText < Text
   traits :timer, :effect, :velocity
 
   def initialize(text, options = {})    
-    super(text, :height => 20, :rotation_center => :center, :x => options[:from].x-200, :y => 400)
+    super(text, {:y => 400, :size => 20, :center_x => 0.5}.merge(options))
+    self.x = ($window.width / 2) + game_state.viewport.x
+    self.rotation_center = :center
     puff_effect
   end
   
