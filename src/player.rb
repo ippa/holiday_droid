@@ -54,6 +54,12 @@ class Droid < Chingu::GameObject
     @jumps > 0
   end
   
+  def bounce_on(object)
+    self.y = object.bb.top
+    self.jumps = 0
+    self.jump
+  end
+  
   def on_top_of?(object)
     self.previous_y < object.bb.top
   end
@@ -68,30 +74,21 @@ class Droid < Chingu::GameObject
     self.velocity_y = -3
   end
   
+  def collect(collectable)
+    PuffText.create("#{collectable.title}    <b>+#{collectable.score}</b>")
+    self.score += collectable.score
+  end
+
+  # Record an attack for future streak-bonuses
   def successfull_attack_on(enemy)
-    self.y = enemy.bb.top
-    
-    if self.velocity_y >= 20        
-      enemy.squash
-      Sound["attack.wav"].play(0.4)
-    elsif self.velocity_y > 2
-      self.jumps = 0
-      self.jump
-      enemy.die
-      Sound["attack.wav"].play(0.3)
-    end
-    
-    PuffText.create("#{enemy.title}    <b>+#{enemy.score}</b>")
-    self.score += enemy.score
-    
     @successful_attacks[enemy.class] ||= 0
     @successful_attacks[enemy.class] += 1
   end
     
   def resurrect
-    self.velocity_x = 0
-    self.velocity_y = 0
     self.x, self.y = @died_at
+    self.velocity_x = 0
+    self.velocity_y = 0    
     self.alpha = 255
     self.factor = 3
     self.collidable = true

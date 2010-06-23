@@ -6,7 +6,8 @@ class Enemy < GameObject
   def initialize(options = {})
     @image = Image["#{self.filename}.bmp"]
     @title = "- title needed -"
-    
+    @energy = 10
+    @status = :default
     super
   end
   
@@ -17,12 +18,32 @@ class Enemy < GameObject
   def update
     @image = @animation.next  if @animation
   end
+  
+  def dead?;  @status == :dead;  end
+  def alive?; @status != :dead;  end
+
+  def hit(energy)
+    @energy -= energy
+    
+    if @energy <= -10
+      return squash
+    elsif @energy <= 0
+      return die
+    end
+      
+    Sound["attack.wav"].play(0.4)
+    during(50) { self.mode = :additive }.then { self.mode = :default }
+    
+    return false
+  end
 
   def squash
+    @status = :dead
     self.collidable = false
     self.rotation_rate = -5
     self.scale_rate = 0.02
-    self.factor_x *= 2
+    self.factor_x *= 1.5
+    self.factor_y *= 1.2
     self.velocity_y = 2
     self.velocity_x = 0
     self.acceleration_y = 0.5
@@ -30,8 +51,9 @@ class Enemy < GameObject
     every(100) { self.mode = (self.mode == :default) ? :additive : :default }
     after(2000) { destroy }
   end
-  
-  def die 
+    
+  def die
+    @status = :dead
     self.collidable = false
     self.rotation_rate = -1
     self.scale_rate = 0.1
@@ -68,6 +90,7 @@ class Fish < MovingEnemy
     self.velocity_x = -2
     @title = "floppy fish"
     @score = 100
+    @energy = 10
   end
 end
 
@@ -78,6 +101,7 @@ class Crab < MovingEnemy
     self.velocity_x = -1.5
     @title = "crab killah"
     @score = 300
+    @energy = 20
   end
 end
 
@@ -88,6 +112,7 @@ class Snail < MovingEnemy
     self.velocity_x = -1
     @title = "Snail Slainer"
     @score = 1000
+    @energy = 30
   end
 end
 
@@ -97,9 +122,25 @@ class Seagull < MovingEnemy
     @image = @animation.first
     @title = "No more Caw-Caw!"
     @score = 850
+    @energy = 20
     
     self.acceleration_y = 0
   end  
+end
+
+class BeachBoss < MovingEnemy
+  def setup
+    @animation = Animation.new(:file => "beach_boss.bmp", :delay => 100, :size => [17,32])
+    @image = @animation.first
+    self.velocity_x = 0
+    @title = "overtanned guido"
+    @score = 10000
+    @energy = 300
+  end
+  
+  def update
+  end
+  
 end
 
 
@@ -108,6 +149,7 @@ class Ball < MovingEnemy
     self.velocity_x = -4
     @title = "annoying beachball"
     @score = 400
+    @energy = 10
   end  
 end
 

@@ -51,8 +51,20 @@ class Level < GameState
     # ENEMIES!
     #
     Enemy.each_collision(@player) do |enemy, player|
-      if player.on_top_of?(enemy)  
-        player.successfull_attack_on(enemy)
+      
+      # Is player comming from above, planting his feed in enemies head? :)
+      if player.on_top_of?(enemy)
+        enemy.hit(20)  if @player.velocity_y >= 20
+        enemy.hit(10)   if @player.velocity_y >= 2
+  
+        # Bounce if: enemy is still alive or if we're doing a non-highspeed jump
+        @player.bounce_on(enemy)  if enemy.alive? || @player.velocity_y < 20
+        
+        if enemy.dead?
+          @player.successfull_attack_on(enemy)
+          PuffText.create("#{enemy.title}    <b>+#{enemy.score}</b>")
+          @player.score += enemy.score
+        end
       else
         player.die
         enemy.die

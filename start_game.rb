@@ -16,7 +16,7 @@ class Game < Chingu::Window
   def setup
     retrofy
     
-    Text.font = "media/badankadonk.ttf"
+    #Text.font = "media/badankadonk.ttf"
     
     self.factor = 1
     
