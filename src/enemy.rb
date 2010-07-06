@@ -1,6 +1,6 @@
 class Enemy < GameObject
-  traits :velocity, :timer, :effect, :bounding_box, :collision_detection
-  
+  traits :velocity, :timer, :effect, :collision_detection
+  trait :bounding_box, :debug => false
   attr_reader :title, :score
   
   def initialize(options = {})
@@ -8,22 +8,22 @@ class Enemy < GameObject
     @title = "- title needed -"
     @energy = 10
     @status = :default
+    #self.rotation_center = :center_bottom
+    self.rotation_center = :bottom_center
     super
   end
   
   def self.inside_viewport
     all.select { |block| block.game_state.viewport.inside?(block) }
   end
-    
-  def update
-    @image = @animation.next  if @animation
-  end
-  
+      
   def dead?;  @status == :dead;  end
   def alive?; @status != :dead;  end
 
   def hit(energy)
     @energy -= energy
+    Sound["attack.wav"].play(0.4)
+    during(50) { self.mode = :additive }.then { self.mode = :default }
     
     if @energy <= -10
       return squash
@@ -31,9 +31,6 @@ class Enemy < GameObject
       return die
     end
       
-    Sound["attack.wav"].play(0.4)
-    during(50) { self.mode = :additive }.then { self.mode = :default }
-    
     return false
   end
 
@@ -65,22 +62,48 @@ class Enemy < GameObject
     after(2000) { destroy }
   end
   
+  def update
+    @image = @animation.next  if @animation
+  end
+  
 end
   
 #
 # Moving enemies are paused until they get into the viewport
 #
 class MovingEnemy < Enemy
+  
   def initialize(options = {})
+    super
+    
     self.acceleration_y = 0.5
     pause!
-    
-    super
   end
   
   def bounce
     self.velocity_y = -self.velocity_y
+    self.y += self.velocity_y
   end  
+  
+  def turn
+    self.velocity_x = -self.velocity_x
+    self.x += self.velocity_x + 1
+  end
+  
+  # This overrides the move() trait velocity adds and calls
+  # Add invidual X-axis / Y-axis collision detection 
+  def move(x, y)
+    if y != 0
+      @y += y
+      bounce  if game_state.first_terrain_collision(self)
+    end
+    
+    if x != 0
+      @x += x
+      turn    if game_state.first_terrain_collision(self)
+    end
+  end
+  
 end
 
 class Fish < MovingEnemy
@@ -110,7 +133,7 @@ class Snail < MovingEnemy
     @animation = Animation.new(:file => "snail.bmp", :delay => 200, :size => [13,12])
     @image = @animation.first
     self.velocity_x = -1
-    @title = "Snail Slainer"
+    @title = "snail slainer"
     @score = 1000
     @energy = 30
   end
@@ -120,7 +143,7 @@ class Seagull < MovingEnemy
   def setup
     @animation = Animation.new(:file => "seagull.bmp", :delay => 100, :size => [15,8])
     @image = @animation.first
-    @title = "No more Caw-Caw!"
+    @title = "no more Caw-Caw!"
     @score = 850
     @energy = 20
     

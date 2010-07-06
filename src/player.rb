@@ -126,6 +126,8 @@ class Droid < Chingu::GameObject
     @last_direction = x > 0 ? :right : :left
     @x += x
     @x = previous_x   if game_state.first_terrain_collision(self)
+    
+    @y += y
   end
   
   def land

@@ -9,7 +9,7 @@ class Level < GameState
     @file = File.join(ROOT, "levels", self.filename + ".yml")
     load_game_objects(:file => @file, :debug => DEBUG)
     
-    @player = Droid.create(:x => 100, :y => 500)
+    @player = Droid.create(:x => 0, :y => 500)
     @score = Text.create("Score: #{@player.score}", :x => 5, :y => 5, :size => 20, :rotation_center => :top_left)
     
     self.viewport.lag = 0.95
@@ -19,7 +19,7 @@ class Level < GameState
   end
   
   def edit
-    push_game_state GameStates::Edit.new(:file => @file, :grid => [16,16], :except => [Droid], :debug => true)
+    push_game_state GameStates::Edit.new(:file => @file, :grid => [16,16], :except => [Droid], :debug => false)
   end
   
   def restore_player_position
@@ -54,7 +54,7 @@ class Level < GameState
       
       # Is player comming from above, planting his feed in enemies head? :)
       if player.on_top_of?(enemy)
-        enemy.hit(20)  if @player.velocity_y >= 20
+        enemy.hit(20)   if @player.velocity_y >= 20
         enemy.hit(10)   if @player.velocity_y >= 2
   
         # Bounce if: enemy is still alive or if we're doing a non-highspeed jump
@@ -79,7 +79,8 @@ class Level < GameState
   end
     
   def first_terrain_collision(object)
-    object.each_collision(@terrain_class.all) do |me, block|
+    index = 1
+    object.each_collision(Block) do |me, block|
       return block
     end
     nil
@@ -89,11 +90,7 @@ end
 #
 # AT THE BEACH
 #
-class Beach < Level
-  def setup
-    @terrain_class = BeachBlock
-  end
-  
+class Beach < Level 
   def draw
     fill_gradient(:from => Color::BLUE, :to => Color::CYAN)
     super
@@ -102,14 +99,7 @@ class Beach < Level
   def update
     super
     
-    MovingEnemy.inside_viewport.each do |enemy| 
-      enemy.unpause! 
-    
-      if block = first_terrain_collision(enemy)
-        enemy.velocity_y = -enemy.velocity_y
-        enemy.y += enemy.velocity_y
-      end
-    end
+    MovingEnemy.inside_viewport.each { |enemy| enemy.unpause! }
   end
 end
 
@@ -118,9 +108,6 @@ end
 # THE GREAT OUTDOORS
 #
 class Outdoor < Level
-  def setup
-    @terrain_class = Dirt
-  end
 end
 
 #
@@ -128,8 +115,7 @@ end
 #
 class Factory < Level
   def setup
-    @terrain_class = BlackBlock
-    
+   
     # Reverse the cog wheels in relation to eachother
     CogWheel.each_collision(CogWheel) do |cog_wheel, cog_wheel_2|
       cog_wheel_2.angle_velocity = -cog_wheel.angle_velocity
