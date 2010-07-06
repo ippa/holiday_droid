@@ -1,5 +1,6 @@
 class Level < GameState
   traits :viewport, :timer
+  attr_reader :player
   
   def initialize(options = {})
     super
@@ -8,8 +9,12 @@ class Level < GameState
     self.viewport.game_area = [0, 0, 6000, 1000]    
     @file = File.join(ROOT, "levels", self.filename + ".yml")
     load_game_objects(:file => @file, :debug => DEBUG)
+    puts "blocks: " + Block.size.to_s
+    puts "enemies:" + Enemy.size.to_s
     
-    @player = Droid.create(:x => 0, :y => 500)
+    @lookup_map = GameObjectMap.new(:game_objects => Block.all, :grid => [32, 32], :debug => false)
+    
+    @player = Droid.create(:x => 32, :y => 500)
     @score = Text.create("Score: #{@player.score}", :x => 5, :y => 5, :size => 20, :rotation_center => :top_left)
     
     self.viewport.lag = 0.95
@@ -19,7 +24,7 @@ class Level < GameState
   end
   
   def edit
-    push_game_state GameStates::Edit.new(:file => @file, :grid => [16,16], :except => [Droid], :debug => false)
+    push_game_state GameStates::Edit.new(:file => @file, :grid => [32,32], :except => [Droid], :debug => false)
   end
   
   def restore_player_position
@@ -79,11 +84,11 @@ class Level < GameState
   end
     
   def first_terrain_collision(object)
-    index = 1
-    object.each_collision(Block) do |me, block|
-      return block
-    end
-    nil
+    @lookup_map.from_game_object(object)   if object.collidable
+    #object.each_collision(Block) do |me, block|
+    #  return block
+    #end
+    #nil
   end
 end
 

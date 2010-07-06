@@ -37,6 +37,7 @@ class Block < GameObject
   
   def setup
     @image = Image["#{self.filename}.png"]
+    self.rotation_center = :top_left
   end
   
   def self.solid

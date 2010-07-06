@@ -2,7 +2,7 @@
 # DROID
 #
 class Droid < Chingu::GameObject
-  trait :bounding_box, :scale => 0.8, :debug => false
+  trait :bounding_box, :scale => 0.8, :debug => true
   traits :timer, :collision_detection , :timer, :velocity
   
   attr_reader :last_direction

@@ -8,9 +8,8 @@ class Enemy < GameObject
     @title = "- title needed -"
     @energy = 10
     @status = :default
-    #self.rotation_center = :center_bottom
-    self.rotation_center = :bottom_center
     super
+    self.rotation_center = :bottom_center
   end
   
   def self.inside_viewport
@@ -75,9 +74,7 @@ class MovingEnemy < Enemy
   
   def initialize(options = {})
     super
-    
     self.acceleration_y = 0.5
-    pause!
   end
   
   def bounce
