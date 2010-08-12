@@ -63,6 +63,7 @@ class Enemy < GameObject
   
   def update
     @image = @animation.next  if @animation
+    self.factor_x = (self.velocity_x < 0) ? self.factor_x.abs : -self.factor_x.abs
   end
   
 end

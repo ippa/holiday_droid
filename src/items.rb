@@ -43,9 +43,21 @@ class Block < GameObject
   def self.solid
     all.select { |block| block.alpha == 255 }
   end
+  
+  def hit(power)
+  end
 
   def self.inside_viewport
     all.select { |block| block.game_state.viewport.inside?(block) }
+  end
+end
+
+class BrokenBeachBlock < Block
+  def hit(power)
+    if power > 15
+      self.destroy  
+      self.parent.lookup_map.clear_game_object(self)
+    end
   end
 end
 

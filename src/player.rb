@@ -2,7 +2,7 @@
 # DROID
 #
 class Droid < Chingu::GameObject
-  trait :bounding_box, :scale => 0.8, :debug => true
+  trait :bounding_box, :scale => 0.8, :debug => false
   traits :timer, :collision_detection , :timer, :velocity
   
   attr_reader :last_direction
@@ -61,7 +61,8 @@ class Droid < Chingu::GameObject
   end
   
   def on_top_of?(object)
-    self.previous_y < object.bb.top
+    #self.previous_y < object.bb.top
+    self.previous_y < object.bb.bottom
   end
   
   def die
@@ -123,7 +124,9 @@ class Droid < Chingu::GameObject
   end
   
   def move(x,y)
-    @last_direction = x > 0 ? :right : :left
+    @last_direction = :right if x > 0
+    @last_direction = :left if x < 0
+    
     @x += x
     @x = previous_x   if game_state.first_terrain_collision(self)
     
@@ -160,6 +163,7 @@ class Droid < Chingu::GameObject
     @image = @animation.next
     
     if block = game_state.first_terrain_collision(self)
+      block.hit(self.velocity_y)
       if self.velocity_y < 0
         self.y = block.bb.bottom + self.height
       else

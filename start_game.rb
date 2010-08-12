@@ -19,7 +19,7 @@ class Game < Chingu::Window
     #Text.font = "media/badankadonk.ttf"
     
     self.factor = 1
-    
+        
     #push_game_state(Intro)
     #push_game_state(Factory)
     #push_game_state(Outdoor)

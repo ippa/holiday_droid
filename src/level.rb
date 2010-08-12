@@ -1,12 +1,12 @@
 class Level < GameState
   traits :viewport, :timer
-  attr_reader :player
+  attr_reader :player, :lookup_map
   
   def initialize(options = {})
     super
     
     self.input = { :escape => :exit, :e => :edit }
-    self.viewport.game_area = [0, 0, 6000, 1000]    
+    self.viewport.game_area = [0, 0, 10000, 1000]    
     @file = File.join(ROOT, "levels", self.filename + ".yml")
     load_game_objects(:file => @file, :debug => DEBUG)
     puts "blocks: " + Block.size.to_s
@@ -52,12 +52,16 @@ class Level < GameState
       @player.score += collectable.score
     end
     
+    #if (touched_block = @lookup_map.from_game_object(@player))
+    #  touched_block.hit(@player.velocity_y.abs)
+    #end
+    
     #
     # ENEMIES!
     #
     Enemy.each_collision(@player) do |enemy, player|
       
-      # Is player comming from above, planting his feed in enemies head? :)
+      # Is player comming from above, planting his feet in an enemies head? :)
       if player.on_top_of?(enemy)
         enemy.hit(20)   if @player.velocity_y >= 20
         enemy.hit(10)   if @player.velocity_y >= 2
