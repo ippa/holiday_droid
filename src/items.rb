@@ -11,8 +11,25 @@ class Tube < GameObject
   end
   
   def fire
-    return if game_state.viewport.outside?(self.bb.centerx, self.bb.bottom)
+    #return if game_state.viewport.outside?(self.bb.centerx, self.bb.bottom)
     FireBall.create(:x => self.bb.centerx - rand(10), :y => self.bb.bottom - rand(10))
+  end
+end
+
+#
+# COG WHEEL
+#
+class CogWheel < GameObject
+  traits :bounding_circle, :collision_detection, :timer
+  attr_accessor :angle_velocity
+  
+  def setup    
+    @image = Image["cog_wheel.png"]
+    @angle_velocity = 1 / self.factor_x
+  end
+  
+  def update
+    self.angle += @angle_velocity
   end
 end
 
@@ -63,4 +80,4 @@ end
 
 class BeachBlock < Block; end
 class BlackBlock < Block; end
-class Dirt < Block; end
+class DirtBlock < Block; end

@@ -69,10 +69,10 @@ class Droid < Chingu::GameObject
     self.collidable = false
     @color = Color::RED
     @died_at = [self.x, self.y]
-    between(1,600) { self.scale += 0.2; self.alpha -= 5; }.then { resurrect }
+    between(1,600) { self.scale += 0.4; self.alpha -= 5; }.then { resurrect }
     Sound["hurt.wav"].play(0.3)
-    self.velocity_x = -4
-    self.velocity_y = -3
+    #self.velocity_x = -4 + rand(10)
+    self.velocity_y = -13
   end
   
   def collect(collectable)

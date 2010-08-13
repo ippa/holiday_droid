@@ -6,7 +6,7 @@ class Level < GameState
     super
     
     self.input = { :escape => :exit, :e => :edit }
-    self.viewport.game_area = [0, 0, 10000, 1000]    
+    self.viewport.game_area = [0, 0, 10000, 3000]    
     @file = File.join(ROOT, "levels", self.filename + ".yml")
     load_game_objects(:file => @file, :debug => DEBUG)
     puts "blocks: " + Block.size.to_s
@@ -24,7 +24,7 @@ class Level < GameState
   end
   
   def edit
-    push_game_state GameStates::Edit.new(:file => @file, :grid => [32,32], :except => [Droid], :debug => false)
+    push_game_state GameStates::Edit.new(:file => @file, :grid => [32,32], :except => [Droid, Cloud, Battery], :debug => false)
   end
   
   def restore_player_position
@@ -41,10 +41,10 @@ class Level < GameState
     #
     off = (@player.last_direction == :right) ? 200 : -200
     self.viewport.x_target = @player.x - $window.width/2 + off
-    self.viewport.y_target = @player.y - $window.height/2 - 200
+    self.viewport.y_target = @player.y - $window.height/2 - 100
     
     #
-    # COLLECTABLES!
+    # COLLECTABLES! (stuff that can be picked up for score)
     #
     Collectable.each_collision(@player) do |collectable, player|
       collectable.die
@@ -52,12 +52,28 @@ class Level < GameState
       @player.score += collectable.score
     end
     
-    #if (touched_block = @lookup_map.from_game_object(@player))
-    #  touched_block.hit(@player.velocity_y.abs)
-    #end
+    #
+    # ENEMY BULLETS! (destructable items, usually moving across the screen)
+    #
+    EnemyBullet.each_collision(@player) do |enemy_bullet, player|
+      player.die
+      enemy_bullet.destroy
+    end
+    
+    EnemyBullet.all.each do |enemy_bullet|
+      enemy_bullet.destroy if @lookup_map.at(enemy_bullet.x, enemy_bullet.y)
+    end
     
     #
-    # ENEMIES!
+    # OBSTACLES (nondestructable player-killing things)
+    #
+    Obstacle.each_collision(@player) do |obstacle, player|
+      player.die
+    end
+
+    
+    #
+    # ENEMIES! (can kill, can be killed, can bounce on)
     #
     Enemy.each_collision(@player) do |enemy, player|
       
@@ -89,10 +105,6 @@ class Level < GameState
     
   def first_terrain_collision(object)
     @lookup_map.from_game_object(object)   if object.collidable
-    #object.each_collision(Block) do |me, block|
-    #  return block
-    #end
-    #nil
   end
 end
 
@@ -100,16 +112,12 @@ end
 # AT THE BEACH
 #
 class Beach < Level 
+  
   def draw
     fill_gradient(:from => Color::BLUE, :to => Color::CYAN)
     super
   end
   
-  def update
-    super
-    
-    MovingEnemy.inside_viewport.each { |enemy| enemy.unpause! }
-  end
 end
 
 
@@ -117,14 +125,20 @@ end
 # THE GREAT OUTDOORS
 #
 class Outdoor < Level
+  
+  def draw
+    fill_gradient(:from => Color::BLUE, :to => Color::CYAN)
+    super
+  end
+    
 end
 
 #
 # THE FACTORY
 #
 class Factory < Level
+  
   def setup
-   
     # Reverse the cog wheels in relation to eachother
     CogWheel.each_collision(CogWheel) do |cog_wheel, cog_wheel_2|
       cog_wheel_2.angle_velocity = -cog_wheel.angle_velocity
@@ -133,22 +147,13 @@ class Factory < Level
   
   def update
     super
-    
-    FireBall.each_collision(@terrain_blocks) do |fire_ball, block|
-      fire_ball.destroy
-    end
-    
+        
     # Makes all saw pendle up and down between Y-coordinate 1000 - 1500
     # TODO: Not a very flexible sollution, how about setting out circle,rects,lines in editor..
     # .. when then can be used for this kind of stuff?
-    
     Saw.all.select {|saw| saw.y < 1300 || saw.y > 1550 }.each do |saw|
       saw.velocity_y = -saw.velocity_y
       saw.y += saw.velocity_y * saw.factor_y 
-    end
-
-    @player.each_collision(FireBall, Saw) do |player, evil_object|
-      player.die
     end
     
   end
