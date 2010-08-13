@@ -6,7 +6,7 @@ end
 # SAW
 #
 class Saw < Obstacle
-  traits :bounding_circle, :timer, :velocity  
+  traits :bounding_circle, :velocity  
   attr_accessor :angle_velocity
   
   def setup    
@@ -18,4 +18,12 @@ class Saw < Obstacle
   def update
     self.angle += @angle_velocity
   end
+end
+
+class StaticSaw < Saw
+  def setup
+    super
+    self.velocity_y = 0
+  end
+  
 end

@@ -4,7 +4,7 @@ class Enemy < GameObject
   attr_reader :title, :score
   
   def initialize(options = {})
-    @image = Image["#{self.filename}.bmp"]
+    @image ||= Image["#{self.filename}.bmp"] rescue Image["#{self.filename}.png"]
     @title = "- title needed -"
     @energy = 10
     @status = :default
@@ -39,12 +39,12 @@ class Enemy < GameObject
     self.rotation_rate = -5
     self.scale_rate = 0.02
     self.factor_x *= 1.5
-    self.factor_y *= 1.2
+    self.factor_y *= 1.3
     self.velocity_y = 2
     self.velocity_x = 0
     self.acceleration_y = 0.5
     
-    every(100) { self.mode = (self.mode == :default) ? :additive : :default }
+    every(200) { self.mode = (self.mode == :default) ? :additive : :default }
     after(2000) { destroy }
   end
     
@@ -53,6 +53,8 @@ class Enemy < GameObject
     self.collidable = false
     self.rotation_rate = -1
     self.scale_rate = 0.1
+    self.factor_x *= 1.2
+    self.factor_y *= 1.2    
     self.velocity_y = -2
     self.velocity_x = 4
     self.acceleration_y = 0.5
@@ -166,9 +168,17 @@ end
 class Ball < MovingEnemy
   def setup
     self.velocity_x = -4
-    @title = "annoying beachball"
+    @title = "A ball"
     @score = 400
     @energy = 10
   end  
 end
 
+
+class BeachBall < MovingEnemy
+  def setup
+    @title = "annoying beachball"
+    @score = 400
+    @energy = 10
+  end  
+end

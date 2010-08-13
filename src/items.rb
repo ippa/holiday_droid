@@ -11,7 +11,6 @@ class Tube < GameObject
   end
   
   def fire
-    #return if game_state.viewport.outside?(self.bb.centerx, self.bb.bottom)
     FireBall.create(:x => self.bb.centerx - rand(10), :y => self.bb.bottom - rand(10))
   end
 end
@@ -45,6 +44,24 @@ class Cloud < GameObject
   end  
 end
 
+class BouncePad < GameObject
+  trait :bounding_box, :scale => 0.75
+  traits :collision_detection, :timer
+  
+  def setup
+    @image = Image["bounce_pad.png"]
+    cache_bounding_box
+  end
+  
+  def hit_by(object)
+    object.velocity_x -= 3 if object.bb.left < self.bb.left
+    object.velocity_x += 3 if object.bb.right > self.bb.right
+    #after(400) { object.velocity_x = 0}
+    
+    object.velocity_y = -20
+    Sound["boink.wav"].play(0.4)
+  end
+end
 
 #
 # BLOCK, our basic level building block
@@ -69,15 +86,21 @@ class Block < GameObject
   end
 end
 
-class BrokenBeachBlock < Block
+class BeachBlock < Block; end
+class BlackBlock < Block; end
+class DirtBlock < Block; end
+
+#
+# Broken Blocks. Disapears when player is jumping hard on them.
+#
+class BrokenBlock < Block
   def hit(power)
     if power > 15
       self.destroy  
       self.parent.lookup_map.clear_game_object(self)
     end
-  end
+  end  
 end
 
-class BeachBlock < Block; end
-class BlackBlock < Block; end
-class DirtBlock < Block; end
+class BrokenBeachBlock < BrokenBlock; end
+class BrokenDirtBlock < BrokenBlock; end

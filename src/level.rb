@@ -24,7 +24,7 @@ class Level < GameState
   end
   
   def edit
-    push_game_state GameStates::Edit.new(:file => @file, :grid => [32,32], :except => [Droid, Cloud, Battery], :debug => false)
+    push_game_state GameStates::Edit.new(:file => @file, :grid => [32,32], :except => [Droid, Cloud, SmokePuff, Battery], :debug => false)
   end
   
   def restore_player_position
@@ -37,12 +37,6 @@ class Level < GameState
 
   def update
     super
-    
-    #
-    # Avoid Gosu/OpenGL GFX-glitches by only painting stuff at integer X/Ys
-    #
-    self.viewport.x = self.viewport.x.to_i
-    self.viewport.y = self.viewport.y.to_i
     
     #
     # VIEWPORT SCIENCE
@@ -70,6 +64,10 @@ class Level < GameState
     
     EnemyBullet.all.each do |enemy_bullet|
       enemy_bullet.destroy if @lookup_map.at(enemy_bullet.x, enemy_bullet.y)
+    end
+    
+    BouncePad.each_collision(@player) do |bounce_pad, player|
+      bounce_pad.hit_by(player)
     end
     
     #
@@ -106,7 +104,7 @@ class Level < GameState
 
     @score.text = "Score: #{@player.score}"
     @score.x = viewport.x + 5
-    $window.caption = "#{@player.x.to_i}/#{@player.y.to_i} - viewport x/y: #{self.viewport.x.to_i}/#{self.viewport.y.to_i} - FPS: #{$window.fps}"
+    $window.caption = "#{@player.x.to_i}/#{@player.y.to_i} velocity x/y: #{@player.velocity_x.to_i}/#{@player.velocity_y.to_i} - viewport x/y: #{self.viewport.x.to_i}/#{self.viewport.y.to_i} - FPS: #{$window.fps}"
   end
     
   def first_terrain_collision(object)
@@ -118,25 +116,23 @@ end
 # AT THE BEACH
 #
 class Beach < Level 
-  
   def draw
     fill_gradient(:from => Color::BLUE, :to => Color::CYAN)
     super
   end
-  
 end
+class Beach2 < Beach; end
+class Beach3 < Beach; end
 
 
 #
 # THE GREAT OUTDOORS
 #
 class Outdoor < Level
-  
   def draw
     fill_gradient(:from => Color::BLUE, :to => Color::CYAN)
     super
   end
-    
 end
 
 #
@@ -153,14 +149,14 @@ class Factory < Level
   
   def update
     super
-        
-    # Makes all saw pendle up and down between Y-coordinate 1000 - 1500
-    # TODO: Not a very flexible sollution, how about setting out circle,rects,lines in editor..
-    # .. when then can be used for this kind of stuff?
-    Saw.all.select {|saw| saw.y < 1300 || saw.y > 1550 }.each do |saw|
+    
+    Saw.all.select {|saw| @lookup_map.at(saw.x, saw.y)}.each do |saw|
       saw.velocity_y = -saw.velocity_y
-      saw.y += saw.velocity_y * saw.factor_y 
+      saw.y += saw.velocity_y * saw.factor_y
     end
     
   end
 end
+
+class Factory2 < Factory; end
+class Factory3 < Factory; end

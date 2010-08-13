@@ -22,8 +22,10 @@ class Game < Chingu::Window
         
     #push_game_state(Intro)
     #push_game_state(Factory)
-    push_game_state(Outdoor)
+    push_game_state(Factory2)
     #push_game_state(Beach)
+    #push_game_state(Beach2)
+    #push_game_state(Outdoor)
     #puts current_game_state.player.bb.left
     #puts current_game_state.player.bb.right
     #exit

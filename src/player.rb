@@ -13,6 +13,9 @@ class Droid < Chingu::GameObject
                     [:holding_right, :holding_d] => :holding_right,
                     [:down, :s] => :down,
                     [:up, :w] => :jump,
+                    :holding_1 => :warp_left,
+                    :holding_2 => :warp_right,
+                    [:released_1, :released_2] => :stop_warp
                   }
     
     # Load the full animation from tile-file media/droid.bmp
@@ -20,6 +23,7 @@ class Droid < Chingu::GameObject
     @animations.frame_names = { :scan => 0..5, :up => 6..7, :down => 8..9, :left => 10..11, :right => 12..13 }
     
     @last_direction = :right
+    @status = :default
     @animation = @animations[:scan]
     @image = @animation.first
     @speed = 4
@@ -54,8 +58,21 @@ class Droid < Chingu::GameObject
     @jumps > 0
   end
   
+  def warp_left
+    self.x -= 100
+    self.collidable = false
+  end
+  def warp_right
+    self.x += 100
+    self.collidable = false
+  end
+  def stop_warp
+    self.collidable = true
+  end
+  
   def bounce_on(object)
     self.y = object.bb.top
+    self.velocity_x = self.velocity_x / 2
     self.jumps = 0
     self.jump
   end
@@ -98,12 +115,22 @@ class Droid < Chingu::GameObject
   end
 
   def holding_left
-    move(-@speed, 0)
+    if @status == :in_air
+      self.velocity_x -= 1  if self.velocity_x > -@speed
+    else
+      self.velocity_x = -@speed
+    end
+    #move(-@speed, 0)
     @animation = @animations[:left]
   end
 
   def holding_right
-    move(@speed, 0)
+    if @status == :in_air
+      self.velocity_x += 1  if self.velocity_x < @speed
+    else
+      self.velocity_x = @speed
+    end
+    #move(@speed, 0)
     @animation = @animations[:right]
   end
 
@@ -128,7 +155,11 @@ class Droid < Chingu::GameObject
     @last_direction = :left if x < 0
     
     @x += x
-    @x = previous_x   if game_state.first_terrain_collision(self)
+    
+    if game_state.first_terrain_collision(self) or self.x < 1
+      @x = previous_x   
+      self.velocity_x = 0
+    end
     
     @y += y
   end
@@ -161,16 +192,20 @@ class Droid < Chingu::GameObject
   
   def update    
     @image = @animation.next
+    @status = :in_air
     
     if block = game_state.first_terrain_collision(self)
       block.hit(self.velocity_y)
+      
       if self.velocity_y < 0
         self.y = block.bb.bottom + self.height
       else
         self.y = block.bb.top-1
         land
       end
-      self.velocity_y = 0      
+      self.velocity_y = 0
+      self.velocity_x = 0
+      @status = :default
     end
     
     # puts "#{@x} != #{@previous_x} || #{@y} != #{@previous_y}"

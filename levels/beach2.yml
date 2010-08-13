@@ -1,0 +1,57 @@
+--- 
+- BrokenBeachBlock: 
+    :x: 384.0
+    :y: 576.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.214765100671141
+    :factor_y: 0.214765100671141
+    :color: 4294967295
+- BeachBlock: 
+    :x: 0.0
+    :y: 576.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.426666666666667
+    :factor_y: 0.426666666666667
+    :color: 4294967295
+- BeachBlock: 
+    :x: 128.0
+    :y: 576.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.426666666666667
+    :factor_y: 0.426666666666667
+    :color: 4294967295
+- BeachBlock: 
+    :x: 256.0
+    :y: 576.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.426666666666667
+    :factor_y: 0.426666666666667
+    :color: 4294967295
+- BeachBlock: 
+    :x: 448.0
+    :y: 576.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.426666666666667
+    :factor_y: 0.426666666666667
+    :color: 4294967295
+- BrokenBeachBlock: 
+    :x: 384.0
+    :y: 640.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.214765100671141
+    :factor_y: 0.214765100671141
+    :color: 4294967295
+- BeachBlock: 
+    :x: 576.0
+    :y: 576.0
+    :angle: 0
+    :zorder: 100
+    :factor_x: 0.426666666666667
+    :factor_y: 0.426666666666667
+    :color: 4294967295
