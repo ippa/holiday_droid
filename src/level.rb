@@ -36,6 +36,14 @@ class Level < GameState
   end
 
   def update
+    super
+    
+    #
+    # Avoid Gosu/OpenGL GFX-glitches by only painting stuff at integer X/Ys
+    #
+    self.viewport.x = self.viewport.x.to_i
+    self.viewport.y = self.viewport.y.to_i
+    
     #
     # VIEWPORT SCIENCE
     #
@@ -99,8 +107,6 @@ class Level < GameState
     @score.text = "Score: #{@player.score}"
     @score.x = viewport.x + 5
     $window.caption = "#{@player.x.to_i}/#{@player.y.to_i} - viewport x/y: #{self.viewport.x.to_i}/#{self.viewport.y.to_i} - FPS: #{$window.fps}"
-    
-    super
   end
     
   def first_terrain_collision(object)

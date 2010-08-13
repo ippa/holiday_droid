@@ -21,8 +21,8 @@ class Game < Chingu::Window
     self.factor = 1
         
     #push_game_state(Intro)
-    push_game_state(Factory)
-    #push_game_state(Outdoor)
+    #push_game_state(Factory)
+    push_game_state(Outdoor)
     #push_game_state(Beach)
     #puts current_game_state.player.bb.left
     #puts current_game_state.player.bb.right
